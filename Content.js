@@ -1,4 +1,4 @@
-const generateHtml = (pageName) => {
+function generateHtml(pageName) {
   return `   <div id="clouds">
     <div class="cloud x1"></div>
     <div class="cloud x1_5"></div>
@@ -13,9 +13,9 @@ const generateHtml = (pageName) => {
     <div class='_1'>GET BACK TO WORK</div>
     <div class='_2'>STUDYING > ${pageName}</div>
 </div>`;
-};
+}
 
-const generateSTYLING = () => {
+function generateSTYLING() {
   return `
     <style>@import url(https://fonts.googleapis.com/css?family=opensans:500);
   body {
@@ -248,28 +248,32 @@ const generateSTYLING = () => {
   }
    </style>
     `;
-};
+}
+
+function timeOutAudio(url) {
+  let val = prompt("Time after which you want to block in min");
+  var msg = new SpeechSynthesisUtterance();
+  msg.text = `${url} will be blocked after ${val} seconds`;
+  window.speechSynthesis.speak(msg);
+
+  setTimeout(() => {
+    var msg = new SpeechSynthesisUtterance();
+    msg.text = `only  5 seconds left`;
+    window.speechSynthesis.speak(msg);
+  }, val * 1000 - 5000);
+
+  setTimeout(() => {
+    document.head.innerHTML = generateSTYLING();
+    document.body.innerHTML = generateHtml(url);
+  }, val * 1000);
+}
 
 switch (window.location.hostname) {
   case "www.youtube.com":
-    document.head.innerHTML = generateSTYLING();
-    document.body.innerHTML = generateHtml("YOUTUBE");
-    break;
-  case "www.instagram.com":
-    document.head.innerHTML = generateSTYLING();
-    document.body.innerHTML = generateHtml("INSTAGRAM");
-    break;
-  case "www.facebook.com":
-    document.head.innerHTML = generateSTYLING();
-    document.body.innerHTML = generateHtml("Face Book");
-    break;
-  case "www.netflix.com":
-    document.head.innerHTML = generateSTYLING();
-    document.body.innerHTML = generateHtml("NETFLIX");
+    timeOutAudio("YOUTUBE");
     break;
 
-  case "www.prime.com":
-    document.head.innerHTML = generateSTYLING();
-    document.body.innerHTML = generateHtml("PRIME");
+  case "www.netflix.com":
+    timeOutAudio("NETFLIX");
     break;
 }
