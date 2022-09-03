@@ -251,7 +251,7 @@ function generateSTYLING() {
 }
 
 function timeOutAudio(url) {
-  let val = prompt("Time after which you want to block in min");
+  let val = prompt("Time after which you want to block in seconds");
   var msg = new SpeechSynthesisUtterance();
   msg.text = `${url} will be blocked after ${val} seconds`;
   window.speechSynthesis.speak(msg);
